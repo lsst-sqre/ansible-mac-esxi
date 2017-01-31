@@ -1,0 +1,24 @@
+---
+
+- name: Change network firewall rule to enable sshClient.
+  command: esxcli network firewall ruleset set --ruleset-id=sshClient --enabled t
+
+- name: Change network firewall rule to enable sshServer.
+  command: esxcli network firewall ruleset set --ruleset-id=sshServer --enabled t
+
+- name: Backup /etc/vmware/firewall/service.xml.
+  command: cp /etc/vmware/firewall/service.xml /etc/vmware/firewall/service.xml.bak
+
+- name: Upload modified /etc/vmware/firewall/service.xml.
+  copy:
+    src: "{{ role_path }}/files/service.xml"
+    dest: /etc/vmware/firewall/service.xml
+    owner: root
+    group: root
+    mode: 0444
+
+- name: Add sticky bit to /etc/vmware/firewall/service.xml.
+  command: chmod +t /etc/vmware/firewall/service.xml
+
+- name: Refresh the firewall configuration.
+  command: esxcli network firewall refresh

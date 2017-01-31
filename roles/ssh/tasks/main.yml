@@ -1,0 +1,32 @@
+---
+
+- name: Backup /etc/ssh/sshd_config.
+  command: cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+
+- name: Upload modified /etc/ssh/sshd_config.
+  copy:
+    src: "{{ role_path }}/files/sshd_config"
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0444
+
+- name: Add sticky bit to /etc/ssh/sshd_config.
+  command: chmod +t /etc/ssh/sshd_config
+
+- name: Backup /etc/ssh/keys-root/authorized_keys
+  command: cp /etc/ssh/keys-root/authorized_keys /etc/ssh/keys-root/authorized_keys.bak
+
+- name: Upload modified /etc/ssh/keys-root/authorized_keys
+  copy:
+    src: "{{ role_path }}/files/authorized_keys"
+    dest: /etc/ssh/keys-root/authorized_keys
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Add sticky bit to /etc/ssh/keys-root/authorized_keys.
+  command: chmod +t /etc/ssh/keys-root/authorized_keys
+
+- name: Restart ssh.
+  command: /etc/init.d/SSH restart

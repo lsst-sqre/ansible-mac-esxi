@@ -1,0 +1,9 @@
+---
+
+- hosts: esxis
+  remote_user: square
+  gather_facts: yes
+
+  roles:
+    - firewall
+    - ssh
