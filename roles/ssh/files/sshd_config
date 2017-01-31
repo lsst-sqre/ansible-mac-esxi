@@ -11,7 +11,7 @@ LogLevel info
 
 PermitRootLogin yes
 
-PrintMotd yes
+PrintMotd no
 PrintLastLog no
 
 TCPKeepAlive yes
