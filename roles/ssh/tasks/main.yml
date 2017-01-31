@@ -27,3 +27,6 @@
 
 - name: Add sticky bit to /etc/ssh/keys-root/authorized_keys.
   command: chmod +t /etc/ssh/keys-root/authorized_keys
+
+- name: Restart ssh.
+  command: /etc/init.d/SSH restart

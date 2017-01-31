@@ -19,3 +19,6 @@
 
 - name: Add sticky bit to /etc/vmware/firewall/service.xml.
   command: chmod +t /etc/vmware/firewall/service.xml
+
+- name: Refresh the firewall configuration.
+  command: esxcli network firewall refresh
